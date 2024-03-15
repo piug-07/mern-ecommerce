@@ -32,7 +32,7 @@ export const getDashboardStats = TryCatch(async (req, res, next) => {
 
     const thisMonthProductsPromise = Product.find({
       createdAt: {
-        $gte: thisMonth.start,
+        $gte: thisMonth.start, 
         $lte: thisMonth.end,
       },
     });
@@ -50,7 +50,7 @@ export const getDashboardStats = TryCatch(async (req, res, next) => {
         $lte: thisMonth.end,
       },
     });
-
+ 
     const lastMonthUsersPromise = User.find({
       createdAt: {
         $gte: lastMonth.start,
@@ -140,7 +140,7 @@ export const getDashboardStats = TryCatch(async (req, res, next) => {
       (total, order) => total + (order.total || 0),
       0
     );
-
+ 
     const count = {
       revenue,
       product: productsCount,
@@ -176,12 +176,12 @@ export const getDashboardStats = TryCatch(async (req, res, next) => {
       discount: i.discount,
       amount: i.total,
       quantity: i.orderItems.length,
-      status: i.status,
+      status: i.status, 
     }));
 
     stats = {
       categoryCount,
-      changePercent,
+      changePercent, 
       count,
       chart: {
         order: orderMonthCounts,
