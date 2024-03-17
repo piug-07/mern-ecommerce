@@ -12,7 +12,7 @@ import { MessageResponse } from "../types/api-types";
 // import { useDispatch } from "react-redux";
 
 const Login = () => {
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const [gender, setGender] = useState("");
   const [date, setDate] = useState("");
 
@@ -29,9 +29,9 @@ const Login = () => {
       //   email: user.email!,
       //   photo: user.photoURL!,
       //   gender,
-      //   role: "user", 
+      //   role: "user",
       //   dob: date,
-      //   _id: user.uid,/
+      //   _id: user.uid,
       // });
 
       const res = await login({
@@ -42,8 +42,8 @@ const Login = () => {
         role: "user",
         dob: date,
         _id: user.uid,
-      }); 
-
+      });
+      console.log(res);
       if ("data" in res) {
         toast.success(res.data.message);
         // const data = await getUser(user.uid);

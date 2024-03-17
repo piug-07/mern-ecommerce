@@ -7,29 +7,28 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useState } from "react";
-// import { User } from "../types/types";
-// import { signOut } from "firebase/auth";
-// import { auth } from "../firebase";
+import { User } from "../types/types";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 import toast from "react-hot-toast";
 
-// interface PropsType {
-//   //   user: User | null;
-//   user: null;
-// }
+interface PropsType {
+  user: User | null;
+  // user: null;
+}
 
-const Header = () => {
+const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = async () => {
     try {
-      //   await signOut(auth);
+      await signOut(auth);
       toast.success("Sign Out Successfully");
       setIsOpen(false);
     } catch (error) {
       toast.error("Sign Out Fail");
     }
   };
-  const user = { _id: "", role:"" };
 
   return (
     <nav className="header">
@@ -58,7 +57,7 @@ const Header = () => {
 
               <Link onClick={() => setIsOpen(false)} to="/orders">
                 Orders
-              </Link> 
+              </Link>
               <button onClick={logoutHandler}>
                 <FaSignOutAlt />
               </button>
