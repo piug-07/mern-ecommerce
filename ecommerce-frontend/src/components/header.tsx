@@ -29,7 +29,7 @@ const Header = () => {
       toast.error("Sign Out Fail");
     }
   };
-  const user = { _id: "etgfv", role:"user" };
+  const user = { _id: "", role:"" };
 
   return (
     <nav className="header">

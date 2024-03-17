@@ -1,4 +1,6 @@
 import { lazy, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
+// import { auth } from "./firebase";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Loader from "./components/loader";
 import Header from "./components/header";
@@ -90,6 +92,7 @@ const App = () => {
           {/* </Route> */}
         </Routes>
       </Suspense>
+      <Toaster position="bottom-center" />
     </Router>
   );
 };
