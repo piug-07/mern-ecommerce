@@ -14,7 +14,6 @@ import toast from "react-hot-toast";
 
 interface PropsType {
   user: User | null;
-  // user: null;
 }
 
 const Header = ({ user }: PropsType) => {

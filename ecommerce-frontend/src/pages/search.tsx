@@ -1,23 +1,23 @@
 import { useState } from "react";
 import ProductCard from "../components/product-card";
-// import {
-//   useCategoriesQuery,
-//   useSearchProductsQuery,
-// } from "../redux/api/productAPI";
-// import { CustomError } from "../types/api-types";
-// import toast from "react-hot-toast";
+import {
+  useCategoriesQuery,
+  useSearchProductsQuery,
+} from "../redux/api/productAPI";
+import { CustomError } from "../types/api-types";
+import toast from "react-hot-toast";
 import { Skeleton } from "../components/loader";
-// import { CartItem } from "../types/types";
-// import { addToCart } from "../redux/reducer/cartReducer";
-// import { useDispatch } from "react-redux";
+import { CartItem } from "../types/types";
+import { addToCart } from "../redux/reducer/cartReducer";
+import { useDispatch } from "react-redux";
 
 const Search = () => {
-  // const {
-  //   data: categoriesResponse,
-  //   isLoading: loadingCategories,
-  //   isError,
-  //   error,
-  // } = useCategoriesQuery("");
+  const {
+    data: categoriesResponse,
+    isLoading: loadingCategories,
+    isError,
+    error,
+  } = useCategoriesQuery("");
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
@@ -25,40 +25,38 @@ const Search = () => {
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
 
-  const productLoading = false;
-  // const {
-  //   isLoading: productLoading,
-  //   data: searchedData,
-  //   isError: productIsError,
-  //   error: productError,
-  // } = useSearchProductsQuery({
-  //   search,
-  //   sort,
-  //   category,
-  //   page,
-  //   price: maxPrice,
-  // });
+  const {
+    isLoading: productLoading,
+    data: searchedData,
+    isError: productIsError,
+    error: productError,
+  } = useSearchProductsQuery({
+    search,
+    sort,
+    category,
+    page,
+    price: maxPrice,
+  });
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const addToCartHandler = () => {};
-  // const addToCartHandler = (cartItem: CartItem) => {
-  //   if (cartItem.stock < 1) return toast.error("Out of Stock");
-  //   dispatch(addToCart(cartItem));
-  //   toast.success("Added to cart");
-  // };
+  const addToCartHandler = (cartItem: CartItem) => {
+    if (cartItem.stock < 1) return toast.error("Out of Stock");
+    dispatch(addToCart(cartItem));
+    toast.success("Added to cart");
+  };
 
   const isPrevPage = page > 1;
   const isNextPage = page < 4;
 
-  // if (isError) {
-  //   const err = error as CustomError;
-  //   toast.error(err.data.message);
-  // }
-  // if (productIsError) {
-  //   const err = productError as CustomError;
-  //   toast.error(err.data.message);
-  // }
+  if (isError) {
+    const err = error as CustomError;
+    toast.error(err.data.message);
+  }
+  if (productIsError) {
+    const err = productError as CustomError;
+    toast.error(err.data.message);
+  }
   return (
     <div className="product-search-page">
       <aside>
@@ -90,9 +88,12 @@ const Search = () => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">ALL</option>
-            <option value="">Sample 1</option>
-            <option value="">Sample 2</option>
-              
+            {!loadingCategories &&
+              categoriesResponse?.categories.map((i) => (
+                <option key={i} value={i}>
+                  {i.toUpperCase()}
+                </option>
+              ))}
           </select>
         </div>
       </aside>
@@ -109,7 +110,7 @@ const Search = () => {
           <Skeleton length={10} />
         ) : (
           <div className="search-product-list">
-            {/* {searchedData?.products.map((i) => (
+            {searchedData?.products.map((i) => (
               <ProductCard
                 key={i._id}
                 productId={i._id}
@@ -119,21 +120,11 @@ const Search = () => {
                 handler={addToCartHandler}
                 photo={i.photo}
               />
-            ))} */}
-          
-              <ProductCard
-                 key="fds"
-                 productId="fasvc"
-                 name="macbook pro"
-                 price={24}
-                 stock={10}
-                 handler={addToCartHandler}
-                 photo="https://m.media-amazon.com/images/I/318IUzGaq2L._SY445_SX342_QL70_FMwebp_.jpg"
-              />
+            ))}
           </div>
         )}
 
-        {/* {searchedData && searchedData.totalPage > 1 && ( */}
+        {searchedData && searchedData.totalPage > 1 && (
           <article>
             <button
               disabled={!isPrevPage}
@@ -142,8 +133,7 @@ const Search = () => {
               Prev
             </button>
             <span>
-              {/* {page} of {searchedData.totalPage} */}
-              {page} of {4}
+              {page} of {searchedData.totalPage}
             </span>
             <button
               disabled={!isNextPage}
@@ -152,7 +142,7 @@ const Search = () => {
               Next
             </button>
           </article>
-        {/* )} */}
+        )}
       </main>
     </div>
   );

@@ -1,39 +1,69 @@
-
-// import axios from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CartItemCard from "../components/cart-item";
-// import {
-//   addToCart,
-//   calculatePrice,
-//   discountApplied,
-//   removeCartItem,
-// } from "../redux/reducer/cartReducer";
-// import { RootState, server } from "../redux/store";
-// import { CartItem } from "../types/types";
+import {
+  addToCart,
+  calculatePrice,
+  discountApplied,
+  removeCartItem,
+} from "../redux/reducer/cartReducer";
+import { RootState, server } from "../redux/store";
+import { CartItem } from "../types/types";
 
 const Cart = () => {
-  const [couponCode, setCouponCode] = useState<string>("");
-  // const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
+  const { cartItems, subtotal, tax, total, shippingCharges, discount } =
+    useSelector((state: RootState) => state.cartReducer);
+  const dispatch = useDispatch();
 
-const subtotal = 420;
-const shippingCharges = 420;
-const discount = 420;
-const tax = 420;
-const total = 420;
-const cartItems = [
-  {
-    ProductId:"ekdhwb",
-    photo:"https://i.imgur.com/uM37r1f.jpg",
-    name: "Samsung Galaxy S21 Ultra 5G",
-    price: 420,
-    quantity: 1,
-    stock:10
-  }
-];
-const isValidCouponCode = true;
+  const [couponCode, setCouponCode] = useState<string>("");
+  const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
+
+  const incrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity >= cartItem.stock) return;
+
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+  };
+  const decrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity <= 1) return;
+
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+  };
+  const removeHandler = (productId: string) => {
+    dispatch(removeCartItem(productId));
+  };
+  useEffect(() => {
+    const { token: cancelToken, cancel } = axios.CancelToken.source();
+
+    const timeOutID = setTimeout(() => {
+      axios
+        .get(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {
+          cancelToken,
+        })
+        .then((res) => {
+          dispatch(discountApplied(res.data.discount));
+          setIsValidCouponCode(true);
+          dispatch(calculatePrice());
+        })
+        .catch(() => {
+          dispatch(discountApplied(0));
+          setIsValidCouponCode(false);
+          dispatch(calculatePrice());
+        });
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeOutID);
+      cancel();
+      setIsValidCouponCode(false);
+    };
+  }, [couponCode]);
+
+  useEffect(() => {
+    dispatch(calculatePrice());
+  }, [cartItems]);
 
   return (
     <div className="cart">
@@ -41,9 +71,9 @@ const isValidCouponCode = true;
         {cartItems.length > 0 ? (
           cartItems.map((i, idx) => (
             <CartItemCard
-              // incrementHandler={incrementHandler}
-              // decrementHandler={decrementHandler}
-              // removeHandler={removeHandler}
+              incrementHandler={incrementHandler}
+              decrementHandler={decrementHandler}
+              removeHandler={removeHandler}
               key={idx}
               cartItem={i}
             />
