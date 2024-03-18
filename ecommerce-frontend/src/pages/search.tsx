@@ -131,7 +131,7 @@ const Search = () => {
               onClick={() => setPage((prev) => prev - 1)}
             >
               Prev
-            </button>
+            </button> 
             <span>
               {page} of {searchedData.totalPage}
             </span>
