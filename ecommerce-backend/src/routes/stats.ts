@@ -1,9 +1,9 @@
 import express from "express";
 import { adminOnly } from "../middlewares/auth.js";
 import {
-  // getBarCharts,
+  getBarCharts,
   getDashboardStats,
-  // getLineCharts,
+  getLineCharts,
   getPieCharts,
 } from "../controllers/stats.js";
 
@@ -16,9 +16,9 @@ app.get("/stats", adminOnly, getDashboardStats);
 app.get("/pie", adminOnly, getPieCharts);
 
 // route - /api/v1/dashboard/bar
-// app.get("/bar", adminOnly, getBarCharts);
+app.get("/bar", adminOnly, getBarCharts);
 
 // route - /api/v1/dashboard/line
-// app.get("/line", adminOnly, getLineCharts);
+app.get("/line", adminOnly, getLineCharts);
 
 export default app;

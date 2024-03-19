@@ -96,7 +96,7 @@ import {
     return (
       <Elements
         options={{
-          clientSecret:"pi_3Ow4wuSHfC7XrxxP0vyjbuYh_secret_gxDnfL2OCn1tisKf4XvctKqyF",
+          clientSecret,
         }}
         stripe={stripePromise}
       >

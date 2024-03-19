@@ -20,7 +20,7 @@ const Shipping = () => {
     city: "",
     state: "",
     country: "",
-    pinCode: "",
+    pinCode: "", 
   });
 
   const changeHandler = (
@@ -36,7 +36,7 @@ const Shipping = () => {
 
     try {
       const { data } = await axios.post(
-        `${server}/api/v1/payment/create`,
+        `${server}/api/v1/payment/create`, 
         {
           amount: total,
         },
