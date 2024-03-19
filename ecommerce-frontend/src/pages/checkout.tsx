@@ -81,7 +81,7 @@ import {
           <button type="submit" disabled={isProcessing}>
             {isProcessing ? "Processing..." : "Pay"}
           </button>
-        </form>
+        </form> 
       </div>
     );
   };
@@ -90,13 +90,13 @@ import {
     const location = useLocation();
   
     const clientSecret: string | undefined = location.state;
-  
+   
     if (!clientSecret) return <Navigate to={"/shipping"} />;
   
     return (
       <Elements
         options={{
-          clientSecret,
+          clientSecret:"pi_3Ow4wuSHfC7XrxxP0vyjbuYh_secret_gxDnfL2OCn1tisKf4XvctKqyF",
         }}
         stripe={stripePromise}
       >

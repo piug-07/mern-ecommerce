@@ -58,7 +58,7 @@ const Transaction = () => {
     toast.error(err.data.message);
   }
 
-  useEffect(() => {
+  useEffect(() => {  
     if (data)
       setRows(
         data.orders.map((i) => ({
