@@ -26,6 +26,7 @@ export const newCoupon = TryCatch(async (req, res, next) => {
     });
 });
 export const applyDiscount = TryCatch(async (req, res, next) => {
+    console.log("fgerb");
     const { coupon } = req.query;
     const discount = await Coupon.findOne({ code: coupon });
     if (!discount)
@@ -51,4 +52,9 @@ export const deleteCoupon = TryCatch(async (req, res, next) => {
         success: true,
         message: `Coupon ${coupon.code} Deleted Successfully`,
     });
+});
+export const piyushCoupon = TryCatch(async (req, res, next) => {
+    {
+        console.log("piyush");
+    }
 });

@@ -65,7 +65,7 @@ const Shipping = () => {
       <button className="back-btn" onClick={() => navigate("/cart")}>
         <BiArrowBack />
       </button>
-
+ 
       <form onSubmit={submitHandler}>
         <h1>Shipping Address</h1>
 

@@ -16,9 +16,9 @@ export const createPaymentIntent = TryCatch(async (req, res, next) => {
   return res.status(201).json({
     success: true,
     clientSecret: paymentIntent.client_secret,
-  })
+  });
 });
- 
+
 export const newCoupon = TryCatch(async (req, res, next) => {
   const { coupon, amount } = req.body;
 
@@ -34,6 +34,7 @@ export const newCoupon = TryCatch(async (req, res, next) => {
 });
 
 export const applyDiscount = TryCatch(async (req, res, next) => {
+  console.log("fgerb");
   const { coupon } = req.query;
 
   const discount = await Coupon.findOne({ code: coupon });
@@ -67,3 +68,7 @@ export const deleteCoupon = TryCatch(async (req, res, next) => {
     message: `Coupon ${coupon.code} Deleted Successfully`,
   });
 });
+
+export const piyushCoupon = TryCatch(async (req, res, next) => {{
+  console.log("piyush");
+}});

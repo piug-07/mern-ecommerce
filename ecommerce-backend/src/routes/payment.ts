@@ -1,12 +1,6 @@
 import express from "express";
 import { adminOnly } from "../middlewares/auth.js";
-import {
-  allCoupons,
-  applyDiscount,
-  createPaymentIntent,
-  deleteCoupon,
-  newCoupon,
-} from "../controllers/payment.js";
+import { allCoupons, applyDiscount, createPaymentIntent, deleteCoupon, newCoupon, piyushCoupon } from "../controllers/payment.js";
 
 const app = express.Router();
 
@@ -24,5 +18,9 @@ app.get("/coupon/all", adminOnly, allCoupons);
 
 // route - /api/v1/payment/coupon/:id
 app.delete("/coupon/:id", adminOnly, deleteCoupon);
+
+// route - /api/v1/payment/piyush
+app.get("/piyush",  piyushCoupon);
+
 
 export default app;

@@ -56,7 +56,7 @@ const Cart = () => {
 
     return () => { 
       clearTimeout(timeOutID);
-      cancel();
+      cancel();  
       setIsValidCouponCode(false);
     };
   }, [couponCode]);
