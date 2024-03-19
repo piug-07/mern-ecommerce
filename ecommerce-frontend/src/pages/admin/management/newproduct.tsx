@@ -33,7 +33,7 @@ const NewProduct = () => {
         }
       };
     }
-  };
+  }; 
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

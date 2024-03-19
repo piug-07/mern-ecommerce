@@ -56,7 +56,7 @@ export const productAPI = createApi({
       query: ({ formData, id }) => ({
         url: `new?id=${id}`,
         method: "POST",
-        body: formData,
+        body: formData, 
       }),
       invalidatesTags: ["product"],
     }),

@@ -22,7 +22,7 @@ const Cart = () => {
   const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
 
   const incrementHandler = (cartItem: CartItem) => {
-    if (cartItem.quantity >= cartItem.stock) return;
+    if (cartItem.quantity >= cartItem.stock) return; 
 
     dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
   };
@@ -54,7 +54,7 @@ const Cart = () => {
         });
     }, 1000);
 
-    return () => {
+    return () => { 
       clearTimeout(timeOutID);
       cancel();
       setIsValidCouponCode(false);
@@ -68,7 +68,7 @@ const Cart = () => {
   return (
     <div className="cart">
       <main>
-        {cartItems.length > 0 ? (
+        {cartItems.length > 0 ? ( 
           cartItems.map((i, idx) => (
             <CartItemCard
               incrementHandler={incrementHandler}

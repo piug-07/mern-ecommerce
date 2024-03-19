@@ -11,7 +11,7 @@ import {
 } from "../../../redux/api/productAPI";
 import { RootState, server } from "../../../redux/store";
 import { responseToast } from "../../../utils/features";
-
+ 
 const Productmanagement = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
 
@@ -19,6 +19,7 @@ const Productmanagement = () => {
   const navigate = useNavigate();
 
   const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
+
 
   const { price, photo, name, stock, category } = data?.product || {
     photo: "",
@@ -69,7 +70,7 @@ const Productmanagement = () => {
     const res = await updateProduct({
       formData,
       userId: user!._id,
-      productId: data!.product._id,
+      productId: data!.product._id, 
     });
 
     responseToast(res, navigate, "/admin/product");
